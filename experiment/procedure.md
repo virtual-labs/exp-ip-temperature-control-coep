@@ -37,6 +37,6 @@
 *	Click Next Level 
 
 6)	Fault Detection
-*	Detect the 3 faults for the I/p converter’s  few reading.
+*	Detect the 3 faults for the I/p converter's  few reading.
 
 
