@@ -20,8 +20,16 @@ var width = $(window).width();
 	console.log("in direct");
     //x = 310;
 	//y = 160;
+	
+	if ($(window).width() <= 1368) {
 	x = 50;
+	y = 40;
+  }else
+  {
+ x = 50;
 	y = 240;
+  }
+	
 	a = 0;
 	
 	var IPNozzel = Nozzelanim_d (x, y,a,OutputValue);
