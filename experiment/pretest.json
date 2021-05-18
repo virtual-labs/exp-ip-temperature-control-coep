@@ -1,0 +1,46 @@
+[{
+	"question": "What will be the output of any Flapper and Nozzle sensor? ",
+	"answers": {
+		"a": "Change in pressure",
+		"b": "Change in flow of air",
+		"c": "Inductance",
+		"d": "Change in displacement"
+	},
+	"correctAnswer": "a"
+}, {
+	"question": "When the reference junction is the same temperature as the measurement junction in a thermocouple circuit, the output voltage (measured by the sensing instrument) is:",
+	"answers": {
+		"a": "Reverse polarity",
+		"b": "Zero",
+		"c": "Noisy",
+		"d": "unreliable"
+	},
+	"correctAnswer": "b"
+}, {
+	"question": "The instruments used for the measurement of pressure is/are",
+	"answers": {
+		"a": "Bellows",
+		"b": "Diaphragms",
+		"c": "Fiber optic pressure sensors",
+		"d": "All of these"
+	},
+	"correctAnswer": "d"
+}, {
+	"question": "Which of the following is not a type of pressure sensing element?",
+	"answers": {
+		"a": "Bellows",
+		"b": "Bourdon tube",
+		"c": "Orifice plate",
+		"d": "Diaphragm"
+	},
+	"correctAnswer": "c"
+}, {
+	"question": "If a force of 3400 pounds is applied to a circular piston 2 inches in diameter, calculate the fluid pressure working against the piston.",
+	"answers": {
+		"a": "344.5 PSI",
+		"b": "270.6 PSI",
+		"c": "1700 PSI",
+		"d": "1082.3 PSI"
+	},
+	"correctAnswer": "d"
+}]
