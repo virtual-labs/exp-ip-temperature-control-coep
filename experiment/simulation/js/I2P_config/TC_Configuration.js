@@ -92,6 +92,10 @@ TC_ConfigureTY = function(appId){
 		
 			
 			$("#TestDiv").html(configure);
+			
+			stop_timer();
+			set_timer();
+			
 		
 		//animLT.repeat(0);
 		TYCircle.attr({'fill':'green'});	
@@ -127,20 +131,28 @@ TC_ConfigureTY = function(appId){
 					
 						if(selectedType =="direct" && output == "0"){
 							
-							 alertify.alert("Configuration is successful.<br> Please click next level to do Electrical Wiring Connections of TY 100");
+							 alertify.alert("Success","Configuration is successful.<br> Please click next level to proceed for wiring of TY 100");
+							 $(".ajs-header").css("background-color","#4CAF50");
 			            	 $("#trsmtrType, #TC_spanLevel, #output").prop("disabled", true);
 			            	 $('#TC_TYwiringDiagram').show();
 							
 						}else if(selectedType =="reverse" && output == "3"){
 							
-							 alertify.alert("Configuration is successful.<br> Please click next level to do Electrical Wiring Connections of TY 100");
+							 alertify.alert("Success","Configuration is successful.<br> Please click next level to proceed for wiring of TY 100");
+							 $(".ajs-header").css("background-color","#4CAF50");
 			            	 $("#trsmtrType, #TC_spanLevel, #output").prop("disabled", true);
 			            	 $('#TC_TYwiringDiagram').show();
 						}else{
 							
-							alertify.alert("Please select the correct output as per selected I/P converter type");
+							alertify.alert("Alert","Please select the correct output as per selected I/P converter type");
+							 $(".ajs-header").css("background-color","#ce6058");
+							 TC_ConfigFlagCnt++;
 						}
 	            
+						
+						minutes = document.getElementById("minutes").textContent;
+		        		seconds = document.getElementById("seconds").textContent;        		
+//		        		console.log(minutes+":"+seconds);
 						
 						TC_configData.appId = appId;
 						TC_configData.Type = selectedType;
@@ -148,8 +160,11 @@ TC_ConfigureTY = function(appId){
 						TC_configData.lowerSpanLevel= lowerSpanLevel;
 						TC_configData.higherSpanLevel= higherSpanLevel;
 						TC_configData.output = output;
+						TC_configData.configcnt = TC_ConfigFlagCnt;
 						TC_configData.lowerOutputLevel= lowerOutputLevel;
 						TC_configData.higherOutputLevel= higherOutputLevel;
+						TC_configData.configTimeInMin = minutes;
+						TC_configData.configTimeInSec = seconds;
 						
 						
 //						console.log(TC_configData);
@@ -159,7 +174,7 @@ TC_ConfigureTY = function(appId){
 //						console.log(ExpTrackData);
 						
 						
-						
+						stop_timer();
 					
 		
 						
@@ -167,7 +182,8 @@ TC_ConfigureTY = function(appId){
 						
 					}else{
 						
-						alertify.alert("Please select all the fields");
+						alertify.alert("Alert","Please select all the fields");
+						 $(".ajs-header").css("background-color","#ce6058");
 						
 					}
 					

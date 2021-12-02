@@ -92,6 +92,9 @@ LC_ConfigureLY = function(appId){
 		
 			
 			$("#TestDiv").html(configure);
+			
+			stop_timer();
+			set_timer();
 		
 		//animLT.repeat(0);
 		LYCircle.attr({'fill':'green'});	
@@ -127,20 +130,28 @@ LC_ConfigureLY = function(appId){
 					
 						if(selectedType =="direct" && output == "0"){
 							
-							 alertify.alert("Configuration is successful.<br> Please click next level to do Electrical Wiring Connections of LY 100");
+							 alertify.alert("Success","Configuration is successful.<br> Please click next level to proceed for wiring of LY 100");
+							 $(".ajs-header").css("background-color","#4CAF50");
 			            	 $("#trsmtrType, #LC_spanLevel, #output").prop("disabled", true);
 			            	 $('#LC_LYwiringDiagram').show();
 							
 						}else if(selectedType =="reverse" && output == "3"){
 							
-							 alertify.alert("Configuration is successful.<br> Please click next level to do Electrical Wiring Connections of LY 100");
+							 alertify.alert("Success","Configuration is successful.<br> Please click next level to proceed for wiring of LY 100");
+							 $(".ajs-header").css("background-color","#4CAF50");
 			            	 $("#trsmtrType, #LC_spanLevel, #output").prop("disabled", true);
 			            	 $('#LC_LYwiringDiagram').show();
 						}else{
 							
-							alertify.alert("Please select the correct output as per selected I/P converter type");
+							alertify.alert("Alert","Please select the correct output as per selected I/P converter type");
+							 $(".ajs-header").css("background-color","#ce6058");
+							 LC_ConfigFlagCnt++;
 						}
 	            
+						
+						minutes = document.getElementById("minutes").textContent;
+		        		seconds = document.getElementById("seconds").textContent;        		
+//		        		console.log(minutes+":"+seconds);
 						
 						LC_configData.appId = appId;
 						LC_configData.Type = selectedType;
@@ -148,9 +159,11 @@ LC_ConfigureLY = function(appId){
 						LC_configData.lowerSpanLevel= lowerSpanLevel;
 						LC_configData.higherSpanLevel= higherSpanLevel;
 						LC_configData.output = output;
+						LC_configData.configcnt = LC_ConfigFlagCnt;
 						LC_configData.lowerOutputLevel= lowerOutputLevel;
 						LC_configData.higherOutputLevel= higherOutputLevel;
-						
+						LC_configData.configTimeInMin = minutes;
+						LC_configData.configTimeInSec = seconds;
 						
 //						console.log(LC_configData);
 						LC_appData.lcConfigData = LC_configData;
@@ -159,7 +172,7 @@ LC_ConfigureLY = function(appId){
 //						console.log(ExpTrackData);
 						
 						
-						
+						stop_timer();
 					
 		
 						
@@ -167,7 +180,8 @@ LC_ConfigureLY = function(appId){
 						
 					}else{
 						
-						alertify.alert("Please select all the fields");
+						alertify.alert("Alert","Please select all the fields");
+						 $(".ajs-header").css("background-color","#ce6058");
 						
 					}
 					

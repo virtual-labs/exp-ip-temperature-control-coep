@@ -93,6 +93,9 @@ FC_ConfigureFY = function(appId){
 			
 			$("#TestDiv").html(configure);
 		
+			stop_timer();
+			set_timer();
+			
 		//animLT.repeat(0);
 		FYCircle.attr({'fill':'green'});	
 		glowFY.stop(animFY);
@@ -127,30 +130,40 @@ FC_ConfigureFY = function(appId){
 					
 						if(selectedType =="direct" && output == "0"){
 							
-							 alertify.alert("Configuration is successful.<br> Please click next level to do Electrical Wiring Connections of FY 100");
+							 alertify.alert("Success","Configuration is successful.<br> Please click next level to proceed for wiring of FY 100");
+							 $(".ajs-header").css("background-color","#4CAF50");
 			            	 $("#trsmtrType, #FC_spanLevel, #output").prop("disabled", true);
 			            	 $('#FC_FYwiringDiagram').show();
 							
 						}else if(selectedType =="reverse" && output == "3"){
 							
-							 alertify.alert("Configuration is successful.<br> Please click next level to do Electrical Wiring Connections of FY 100");
+							 alertify.alert("Success","Configuration is successful.<br> Please click next level to proceed for wiring of FY 100");
+							 $(".ajs-header").css("background-color","#4CAF50");
 			            	 $("#trsmtrType, #FC_spanLevel, #output").prop("disabled", true);
 			            	 $('#FC_FYwiringDiagram').show();
 						}else{
 							
-							alertify.alert("Please select the correct output as per selected I/P converter type");
+							alertify.alert("Alert","Please select the correct output as per selected I/P converter type");
+							 $(".ajs-header").css("background-color","#ce6058");
+							 FC_ConfigFlagCnt++;
 						}
 	            
-						
+						minutes = document.getElementById("minutes").textContent;
+		        		seconds = document.getElementById("seconds").textContent;        		
+//		        		console.log(minutes+":"+seconds);
+		        		
+		        		
 						FC_configData.appId = appId;
 						FC_configData.Type = selectedType;
 						FC_configData.span = span;
 						FC_configData.lowerSpanLevel= lowerSpanLevel;
 						FC_configData.higherSpanLevel= higherSpanLevel;
 						FC_configData.output = output;
+						FC_configData.configcnt = FC_ConfigFlagCnt;
 						FC_configData.lowerOutputLevel= lowerOutputLevel;
 						FC_configData.higherOutputLevel= higherOutputLevel;
-						
+						FC_configData.configTimeInMin = minutes;
+						FC_configData.configTimeInSec = seconds
 						
 //						console.log(FC_configData);
 						FC_appData.fcConfigData = FC_configData;
@@ -160,14 +173,15 @@ FC_ConfigureFY = function(appId){
 						
 						
 						
-					
+						stop_timer();
 		
 						
 					
 						
 					}else{
 						
-						alertify.alert("Please select all the fields");
+						alertify.alert("Alert","Please select all the fields");
+						 $(".ajs-header").css("background-color","#ce6058");
 						
 					}
 					

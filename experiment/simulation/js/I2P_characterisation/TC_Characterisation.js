@@ -11,18 +11,18 @@ $(function () {
 	$("#submit_TC_WaterLevel").prop("hidden", false);
 	 $("#TC_graph").prop("hidden", false);
 
-/*	 var lowerSpLevel = 4;
-	 var higherSpLevel = 20;
-	
-	 if(i2pType == "direct"){
-		 
-		 var lowerOutputLevel = 0.2;
-		 var higherOutputLevel = 1;
-	 }else{
-		 
-		 var lowerOutputLevel = 1;
-		 var higherOutputLevel = 0.2;
-	 }*/
+//	 var lowerSpLevel = 4;
+//	 var higherSpLevel = 20;
+//	
+//	 if(i2pType == "direct"){
+//		 
+//		 var lowerOutputLevel = 0.2;
+//		 var higherOutputLevel = 1;
+//	 }else{
+//		 
+//		 var lowerOutputLevel = 1;
+//		 var higherOutputLevel = 0.2;
+//	 }
 
 	 var lowerSpLevel = ExpTrackData.tcAppData.tcConfigData.lowerSpanLevel;
 	 var higherSpLevel = ExpTrackData.tcAppData.tcConfigData.higherSpanLevel;
@@ -92,6 +92,9 @@ $(function () {
 			+'<div >'
 
 	$(mainDiv).html(TC_characterisation);
+	
+	stop_timer();
+	set_timer();
 
 	var slider = document.getElementById("TC_tankLvl");
 	var output = document.getElementById("demo");
@@ -110,7 +113,8 @@ $(function () {
 						
 						
 						if ($.inArray(parseFloat(waterlevel), TColdreading) >= 0) {
-							alertify.alert('This value reading is already present.  Please select another value for reading');
+							alertify.alert('Alert','This value reading is already present.  Please select another value for reading');
+							$(".ajs-header").css("background-color","#ce6058");
 						} else {
 							$("#TC_graph").prop("hidden", false);
 							
@@ -275,8 +279,9 @@ $(function () {
 
 						if (readingcnt < numofReading) {
 
-							alertify.alert("Please take at least " + numofReading
+							alertify.alert('Alert',"Please take at least " + numofReading
 									+ " readings");
+							$(".ajs-header").css("background-color","#ce6058");
 						}
 
 						
@@ -405,14 +410,16 @@ $(function () {
 
 		if(TColdreadingForGraph.indexOf(lowerSpLevel) == -1){
 			
-			alertify.alert("Please select lower span value and plot the graph again");
+			alertify.alert('Alert',"Please select lower span value and plot the graph again");
+			$(".ajs-header").css("background-color","#ce6058");
 			$("#TC_calibration").prop("hidden", true);
 			$("#TC_graph").prop("hidden", true);			
 			$("#TC_chartContainer").html('');
 			
 		}else if(TColdreadingForGraph.indexOf(higherSpLevel) == -1){
 			
-			alertify.alert("Please select higher span value and plot the graph again");
+			alertify.alert('Alert',"Please select higher span value and plot the graph again");
+			$(".ajs-header").css("background-color","#ce6058");
 			$("#TC_calibration").prop("hidden", true);
 			$("#TC_graph").prop("hidden", true);	
 			$("#TC_chartContainer").html('');
@@ -420,9 +427,16 @@ $(function () {
 			
 		}else{
 			
+			minutes = document.getElementById("minutes").textContent;
+    		seconds = document.getElementById("seconds").textContent;        		
+//    		console.log(minutes+":"+seconds);
+			
 			TC_CharacterisationData.TCreading = TColdreading;
 			TC_CharacterisationData.TCactualVal = TCarr_actualVal;
 			TC_CharacterisationData.TCstdVal = TCarr_stdVal;
+			
+			TC_CharacterisationData.CharacTimeInMin = minutes;
+			TC_CharacterisationData.CharacTimeInSec = seconds;
 			
 //			console.log(TC_CharacterisationData);
 			
@@ -431,6 +445,9 @@ $(function () {
 			ExpTrackData.tcCharactData = TC_CharacterisationData;
 			
 //			console.log(ExpTrackData);
+			
+			stop_timer();
+			
 			if(i2pType == "direct"){
 			TC_calibrationFun_Direct(i2pType, lowerSpLevel, higherSpLevel, TColdreading, TCarr_actualVal, TCarr_stdVal, lowerOutputLevel, higherOutputLevel);
 			}

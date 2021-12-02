@@ -104,7 +104,7 @@ var TC_formula_json = {
         return temp;
        },
 	"c": function (param) {
-		var temp = Math.sin(param)+param + tcZeroError + TC_DefaultErr;
+		var temp = Math.sin(param)+param + tcZeroError - TC_DefaultErr;
         return temp;
        },
 	"d":  function (param) {
@@ -112,7 +112,7 @@ var TC_formula_json = {
         return temp;
        },
 	"e":  function (param) {
-		var temp = Math.cos(param)+param + tcZeroError + TC_DefaultErr;
+		var temp = Math.cos(param)+param + tcZeroError - TC_DefaultErr;
         return temp;
        },
 	"f" : function (param) {
@@ -129,15 +129,15 @@ var TC_formula_json = {
        },
     	   
 	"i" : function (param) {
-		var temp = param + (0.01*param) + tcZeroError + TC_DefaultErr;
+		var temp = param + (0.01*param) + tcZeroError - TC_DefaultErr;
         return temp;
        }, 
 	"j" : function (param) {
-		var temp = param + (0.01*param) + tcZeroError + TC_DefaultErr;
+		var temp = param + (0.01*param) + tcZeroError - TC_DefaultErr;
         return temp;
        },
 	"k" : function (param) {
-		var temp = param + (0.01*param) + tcZeroError + TC_DefaultErr;
+		var temp = param + (0.01*param) + tcZeroError - TC_DefaultErr;
         return temp;
        },  
 	"l" : function (param) {
@@ -145,7 +145,7 @@ var TC_formula_json = {
         return temp;
        },  
 	"m" : function (param) {
-		var temp = param + (0.01*param) + tcZeroError + TC_DefaultErr;
+		var temp = param + (0.01*param) + tcZeroError - TC_DefaultErr;
         return temp;
        },  
 	"n" : function (param) {
@@ -157,7 +157,7 @@ var TC_formula_json = {
         return temp;
        },   
 	"p" : function (param) {
-		var temp = param + (0.015*param) + tcZeroError - TC_DefaultErr;
+		var temp = param + (0.015*param) + tcZeroError + TC_DefaultErr;
         return temp;
        },  
 	"q" : function (param) {
@@ -166,16 +166,16 @@ var TC_formula_json = {
        },
 	
 	"r" : function (param) {
-		var temp = param + (0.015*param) + tcZeroError - TC_DefaultErr;
+		var temp = param + (0.015*param) + tcZeroError + TC_DefaultErr;
         return temp;
        },
 	"s" : function (param) {
-		var temp = param + (0.01*param) + tcZeroError - TC_DefaultErr;
+		var temp = param + (0.01*param) + tcZeroError + TC_DefaultErr;
         return temp;
        },
 	   
 	"t" : function (param) {
-		var temp = param + (0.01*param) + tcZeroError - TC_DefaultErr;
+		var temp = param + (0.01*param) + tcZeroError + TC_DefaultErr;
         return temp;
        },  
 	   
@@ -189,7 +189,7 @@ var TC_formula_json = {
         return temp;
        },    
 	"w" : function (param) {
-		var temp = param + (0.015*param) + tcZeroError - TC_DefaultErr;
+		var temp = param + (0.015*param) + tcZeroError + TC_DefaultErr;
         return temp;
        },  
 	 "x" : function (param) {
@@ -197,12 +197,12 @@ var TC_formula_json = {
         return temp;
        },    
 	"y" : function (param) {
-		var temp = param + (0.015*param) + tcZeroError - TC_DefaultErr;
+		var temp = param + (0.015*param) + tcZeroError + TC_DefaultErr;
         return temp;
        },    
 	   
 	"z" : function (param) {
-		var temp = param + (0.015*param) + tcZeroError - TC_DefaultErr;
+		var temp = param + (0.015*param) + tcZeroError + TC_DefaultErr;
         return temp;
        },    
 	"aa" : function (param) {

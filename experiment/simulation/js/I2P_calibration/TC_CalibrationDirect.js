@@ -20,6 +20,9 @@
 	 var zeroAmiValFlag = 0;
 	 var OutputValue = 0;
 	 var inputValue = 4;
+	 
+	 var tcflagSpan_direct = false;
+	 
 	 TColdreadingSorted = TColdreading.slice();
 	 TColdreadingSorted.sort(function(a, b) {
 			return a - b
@@ -109,6 +112,8 @@
 	$("#TestNextDiv").html(TC_calibrationData);
 
 	
+	stop_timer();
+	set_timer();
 	
 	
 	
@@ -127,7 +132,9 @@
 									        
 					if(($("#zeroerror").val() == '') ||  isNaN($("#zeroerror").val())){
 						
-						alertify.alert("Please Enter The Answer In Numeric Only");
+						alertify.alert("Alert","Please Enter The Answer In Numeric Only");
+						$(".ajs-header").css("background-color","#ce6058");
+
 						
 					}else{
 						
@@ -158,12 +165,15 @@
 //								alertify.alert("Correct Answer is: " + TC_ZeroError.toFixed(3));
 							}else if(TC0Err_cnt == 4){
 								
-								alertify.alert("Answer is incorrect");
-								alertify.alert("Correct Answer is: " + TC_ZeroError.toFixed(3));
-							}
-							else{
+								alertify.alert("Alert","Answer is incorrect");
+								alertify.alert("Alert","Correct Answer is: " + TC_ZeroError.toFixed(3));
+								$(".ajs-header").css("background-color","#ce6058");
+
+							}else{
 								
-								alertify.alert("Answer is incorrect");
+								alertify.alert("Alert","Answer is incorrect");
+								$(".ajs-header").css("background-color","#ce6058");
+
 								TC0Err_cnt++;
 							}
 							
@@ -188,7 +198,9 @@
 							        
 			if(($("#spanerror").val() == '') ||  isNaN($("#spanerror").val())){
 				
-				alertify.alert("Please Enter The Answer In Numeric Only");
+				alertify.alert("Alert","Please Enter The Answer In Numeric Only");
+				$(".ajs-header").css("background-color","#ce6058");
+
 				
 			}else{
 				
@@ -215,11 +227,15 @@
 //						alertify.alert("Correct Answer is: " + TC_ZeroError.toFixed(3));
 					}else if(TCSpanErr_cnt == 4){
 						
-						alertify.alert("Answer is incorrect");
-						alertify.alert("Correct Answer is: " + TC_SpanError.toFixed(3));
+						alertify.alert("Alert","Answer is incorrect");
+						alertify.alert("Alert","Correct Answer is: " + TC_SpanError.toFixed(3));
+						$(".ajs-header").css("background-color","#ce6058");
+
 					}else{
 						
-						alertify.alert("Answer is incorrect");
+						alertify.alert("Alert","Answer is incorrect");
+						$(".ajs-header").css("background-color","#ce6058");
+
 						TCSpanErr_cnt++;
 					}
 					
@@ -339,11 +355,15 @@
 //					alertify.alert("Correct Answer is: " + TC_ZeroError.toFixed(3));
 				}else if(TC_LinearityErr_cnt == 4){
 						
-						alertify.alert("Answer is incorrect");
-						alertify.alert("Correct Answer is: " + TC_linearity.toFixed(3));
+						alertify.alert("Alert","Answer is incorrect");
+						alertify.alert("Alert","Correct Answer is: " + TC_linearity.toFixed(3));
+						$(".ajs-header").css("background-color","#ce6058");
+
 					}else{
 						
-						alertify.alert("Answer is incorrect");
+						alertify.alert("Alert","Answer is incorrect");
+						$(".ajs-header").css("background-color","#ce6058");
+
 						TC_LinearityErr_cnt++;
 					}
 					
@@ -373,7 +393,9 @@
 		   
 		   if(($("#Accuracy").val() == '') ||  isNaN($("#Accuracy").val())){
 				
-				alertify.alert("Please Enter The Answer In Numeric Only");
+				alertify.alert("Alert","Please Enter The Answer In Numeric Only");
+				$(".ajs-header").css("background-color","#ce6058");
+
 				
 			}else{
 				
@@ -406,11 +428,15 @@
 //						alertify.alert("Correct Answer is: " + TC_ZeroError.toFixed(3));
 					}else if(TC_AccuracyErr_cnt == 4){
 						
-						alertify.alert("Answer is incorrect");
-						alertify.alert("Correct Answer is: " + Avg_Accuracy.toFixed(3));
+						alertify.alert("Alert","Answer is incorrect");
+						alertify.alert("Alert","Correct Answer is: " + Avg_Accuracy.toFixed(3));
+						$(".ajs-header").css("background-color","#ce6058");
+
 					}else{
 						
-						alertify.alert("Answer is incorrect");
+						alertify.alert("Alert","Answer is incorrect");
+						$(".ajs-header").css("background-color","#ce6058");
+
 						TC_AccuracyErr_cnt++;
 					}
 					
@@ -530,7 +556,39 @@
 						//$('#plus').hide();
 						ZeroAnimMinus(TCarr_actualValSorted[0]);
 						  $("#ZeroangleVal").val(TCarr_actualValSorted[0]);
-						drawGraph(TColdreadingSorted, TCarr_actualValSorted);	
+						  
+						  
+						  if(tcflagSpan_direct == false){
+								 
+								 for( var i= 1; i<=(TCarr_actualValSorted.length-1); i++ )
+									{
+									
+									var oldval =  TCarr_actualValSorted[i];
+									var LinearityNewVal = (oldval - stepFix).toFixed(3);	
+									//console.log("oldvalue "+oldval+"new Value "+LinearityNewVal);
+									
+									TCarr_actualValSorted.splice(i, 1, parseFloat(LinearityNewVal));
+									
+									 
+									} 
+							 } else{
+								 
+								 for( var i= 1; i<=(TCarr_actualValSorted.length-2); i++ )
+									{
+									
+									var oldval =  TCarr_actualValSorted[i];
+									var LinearityNewVal = (oldval - stepFix).toFixed(3);	
+									//console.log("oldvalue "+oldval+"new Value "+LinearityNewVal);
+									
+									TCarr_actualValSorted.splice(i, 1, parseFloat(LinearityNewVal));
+									
+									 
+									} 
+							 }
+						  
+						  
+						  
+						TC_Updategraph(TColdreadingSorted, TCarr_actualValSorted);	
 						
 						//console.log(TCarr_actualValSorted);
 						if(flag == 0){
@@ -563,7 +621,38 @@
 								 //console.log(TCarr_actualValSorted);
 								 ZeroAnimMinus(TCarr_actualValSorted[0]);
 								  $("#ZeroangleVal").val(TCarr_actualValSorted[0]);
-								 drawGraph(TColdreadingSorted, TCarr_actualValSorted);	
+								  
+								  if(tcflagSpan_direct == false){
+										 
+										 for( var i= 1; i<=(TCarr_actualValSorted.length-1); i++ )
+											{
+											
+											var oldval =  TCarr_actualValSorted[i];
+											var LinearityNewVal = (oldval - stepFix).toFixed(3);	
+											//console.log("oldvalue "+oldval+"new Value "+LinearityNewVal);
+											
+											TCarr_actualValSorted.splice(i, 1, parseFloat(LinearityNewVal));
+											
+											 
+											} 
+									 } else{
+										 
+										 for( var i= 1; i<=(TCarr_actualValSorted.length-2); i++ )
+											{
+											
+											var oldval =  TCarr_actualValSorted[i];
+											var LinearityNewVal = (oldval - stepFix).toFixed(3);	
+											//console.log("oldvalue "+oldval+"new Value "+LinearityNewVal);
+											
+											TCarr_actualValSorted.splice(i, 1, parseFloat(LinearityNewVal));
+											
+											 
+											} 
+									 }
+								  
+								  
+								  
+								 TC_Updategraph(TColdreadingSorted, TCarr_actualValSorted);	
 				           }
 				   
 
@@ -703,6 +792,37 @@
 					    TCarr_actualValSorted.splice(0, 1, parseFloat(ZeroValue));
 					    //console.log(TCarr_actualValSorted);
 					 
+					    
+					    
+					    if(tcflagSpan_direct == false){
+							 
+							 for( var i= 1; i<=(TCarr_actualValSorted.length-1); i++ )
+								{
+								
+								var oldval =  TCarr_actualValSorted[i];
+								var LinearityNewVal = (oldval + parseFloat(stepFix)).toFixed(3);	
+								//console.log("oldvalue "+oldval+"new Value "+LinearityNewVal);
+								
+								TCarr_actualValSorted.splice(i, 1, parseFloat(LinearityNewVal));
+								
+								 
+								} 
+						 } else{
+							 
+							 for( var i= 1; i<=(TCarr_actualValSorted.length-2); i++ )
+								{
+								
+								var oldval =  TCarr_actualValSorted[i];
+								var LinearityNewVal = (oldval + parseFloat(stepFix)).toFixed(3);	
+								//console.log("oldvalue "+oldval+"new Value "+LinearityNewVal);
+								
+								TCarr_actualValSorted.splice(i, 1, parseFloat(LinearityNewVal));
+								
+								 
+								} 
+						 }
+					    
+					    
 					
 				    
 				     var $elem = $('.icon-repeat1');
@@ -728,7 +848,7 @@
 						$('#ZeroErrorKnockSuccess').html('<div class="alert alert-danger">Zero not Adjusted!!!</div>');
 						}
 				     
-				     drawGraph(TColdreadingSorted, TCarr_actualValSorted);	
+				     TC_Updategraph(TColdreadingSorted, TCarr_actualValSorted);	
 				     
 				 }
 				 
@@ -879,6 +999,23 @@
 				 
 				 ZeroValue = parseFloat((ZeroValue + parseFloat(stepFix)).toFixed(3));
 				 
+				 
+				 
+				 for( var i= 1; i<=(TCarr_actualValSorted.length-2); i++ )
+					{
+					
+					var oldval =  TCarr_actualValSorted[i];
+					var LinearityNewVal = (oldval + parseFloat(stepFix)).toFixed(3);	
+					//console.log("oldvalue "+oldval+"new Value "+LinearityNewVal);
+					
+					TCarr_actualValSorted.splice(i, 1, parseFloat(LinearityNewVal));
+					
+					 
+					}
+				 
+				 
+				 
+				 
 				//	//console.log(SpanValue);
 					var SpanValueFix = SpanValue.toFixed(0);
 					
@@ -920,7 +1057,7 @@
 			     $("#SpanangleVal").val(TCarr_actualValSorted[ArrayLeng - 1 ]);
 			     spanAnimMinus(TCarr_actualValSorted[ArrayLeng - 1 ]);
 			     
-			     drawGraph(TColdreadingSorted, TCarr_actualValSorted);	
+			     TC_Updategraph(TColdreadingSorted, TCarr_actualValSorted);	
 			 }
 				 function spanAnimMinus(SpanAnimMinusValue)
 				 {
@@ -981,6 +1118,22 @@
 					 
 					 ZeroValue = parseFloat((ZeroValue - parseFloat(stepFix)).toFixed(3));
 					 
+					 
+					 for( var i= 1; i<=(TCarr_actualValSorted.length-2); i++ )
+						{
+						
+						var oldval =  TCarr_actualValSorted[i];
+						var LinearityNewVal = (oldval - parseFloat(stepFix)).toFixed(3);	
+						//console.log("oldvalue "+oldval+"new Value "+LinearityNewVal);
+						
+						TCarr_actualValSorted.splice(i, 1, parseFloat(LinearityNewVal));
+						
+						 
+						}
+					 
+					 
+					 
+					 
 						//console.log(SpanValue);
 						var SpanValueFix = SpanValue.toFixed(0);
 						if(range.toFixed(2) == n)
@@ -992,7 +1145,7 @@
 							 zeroAniVal = 0;
 							 inputValue = 4;
 							 spanAnimPlus(TCarr_actualValSorted[ArrayLeng - 1 ]);
-							drawGraph(TColdreadingSorted, TCarr_actualValSorted);	
+							TC_Updategraph(TColdreadingSorted, TCarr_actualValSorted);	
 							//alertify.alert("Span Error Adjusted Successfully!!!");
 							//$('#SpanErrorKnockData').hide();
 							//$('#ZeroErrorKnockData').show();
@@ -1002,6 +1155,7 @@
 							//$('#ZeroErrorKnockData').hide();
 							$('#SpanErrorKnockSuccess').html('');
 							$('#SpanErrorKnockSuccess').html('<div class="alert alert-success">Span Adjusted Successfully!!!</div><div class="alert alert-danger">But Zero affected. <br/>Adjust Zero Again</div>');
+							tcflagSpan_direct = true;
 							TCZero_Calibartion(range, 1);
 							
 							
@@ -1016,7 +1170,7 @@
 					    $("#SpanangleVal").val(TCarr_actualValSorted[ArrayLeng - 1 ]);
 					    inputValue = 4;
 					    spanAnimPlus(TCarr_actualValSorted[ArrayLeng - 1 ]);
-					    drawGraph(TColdreadingSorted, TCarr_actualValSorted);	
+					    TC_Updategraph(TColdreadingSorted, TCarr_actualValSorted);	
 							}
 						
 						
@@ -1111,11 +1265,11 @@
 			 
 /// LINEARITY TOP MINUS CLICK  
 			 
-		
+//			 LinearityTopplus  LinearityTopminus	
 			 
 			 
-			 $('#LinearityTopminus').bind("click",function (event) {
-				 linearityAlgo1Cnt++;
+			 $('#LinearityTopplus').bind("click",function (event) {
+					linearityAlgo1Cnt++;
 				 $('#LinearityTopKnockSuccess').html('');
 				
                  //console.log(defError);
@@ -1124,7 +1278,7 @@
 					 var n = angle.toFixed(2);
 					 //console.log("angle "+n);
 				      
-					 $('#LinearityTopplus').show();
+					 $('#LinearityTopminus').show();
 
 					
 					
@@ -1132,7 +1286,7 @@
 						{
 						
 						var oldval =  TCarr_actualValSorted[i];
-						var LinearityNewVal = (oldval - stepFix).toFixed(3);	
+						var LinearityNewVal = (oldval + stepFix).toFixed(3);	
 						//console.log("oldvalue "+oldval+"new Value "+LinearityNewVal);
 						
 						 TCarr_actualValSorted.splice(i, 1, parseFloat(LinearityNewVal));
@@ -1142,7 +1296,7 @@
 								
 					 if(defError == n)
 						{
-						 $('#LinearityTopminus').hide();
+						 $('#LinearityTopplus').hide();
 						 $('#LinearitySectionOneKnockData').hide();
 							// $('#LinearityKnockSuccess').html('');
 						$('#LinearityTopKnockSuccess').html('<div class="alert alert-success">Linearity Algorithm 1 Adjusted Successfully!!!</div>');
@@ -1167,7 +1321,7 @@
 					
 					
 					 //console.log(TCarr_actualValSorted);
-						 drawGraph(TColdreadingSorted, TCarr_actualValSorted);	
+						 TC_Updategraph(TColdreadingSorted, TCarr_actualValSorted);	
 				
 				    
 				     var $elem = $('.icon-repeat');
@@ -1195,9 +1349,11 @@
 				 });
 			 
 		// LINEARITY TOP PLUS CLICK	 
+			 
+//			 LinearityTopplus  LinearityTopminus	
 
-				 $('#LinearityTopplus').bind("click",function (event) {
-					 linearityAlgo1Cnt++;
+				 $('#LinearityTopminus').bind("click",function (event) {
+						linearityAlgo1Cnt++;
 
 	                 //console.log(defError);
 					 if(angle >= -(defError)){
@@ -1205,7 +1361,7 @@
 						 var n = angle.toFixed(2);
 						 //console.log("angle "+n);
 					      
-						 $('#LinearityTopminus').show();
+						 $('#LinearityTopplus').show();
 
 						
 						
@@ -1213,7 +1369,7 @@
 							{
 							
 							var oldval =  TCarr_actualValSorted[i];
-							var LinearityNewVal = (oldval + stepFix).toFixed(3);	
+							var LinearityNewVal = (oldval - stepFix).toFixed(3);	
 							//console.log("oldvalue "+oldval+"  new Value "+LinearityNewVal);
 							
 							 TCarr_actualValSorted.splice(i, 1, parseFloat(LinearityNewVal));
@@ -1223,7 +1379,7 @@
 									
 						 if((-defError) == n)
 							{
-							 $('#LinearityTopplus').hide();
+							 $('#LinearityTopminus').hide();
 							// $('#LinearityKnockSuccess').html('');
 							 $('#LinearityTopKnockSuccess').html('<div class="alert alert-danger">Linearity Algorithm 1 not Adjusted </div>');
 							 }
@@ -1231,7 +1387,7 @@
 						
 						
 						 //console.log(TCarr_actualValSorted);
-						 drawGraph(TColdreadingSorted, TCarr_actualValSorted);	
+						 TC_Updategraph(TColdreadingSorted, TCarr_actualValSorted);	
 				
 					    
 					     var $elem = $('.icon-repeat');
@@ -1332,9 +1488,9 @@
 			
 			/// LINEARITY BOTTOM MINUS CLICK  
 			 
-			
+//			     LinearityBottomminus  LinearityBottomplus
 					 
-					 $('#LinearityBottomminus').bind("click",function (event) {
+					 $('#LinearityBottomplus').bind("click",function (event) {
 
 						 linearityAlgo2Cnt++;
 						
@@ -1344,7 +1500,7 @@
 							 var n = angle.toFixed(2);
 							 //console.log("angle "+n);
 						      
-							 $('#LinearityBottomplus').show();
+							 $('#LinearityBottomminus').show();
 
 							
 							 //console.log("negative value Index "+negativeValueIndex);
@@ -1354,7 +1510,7 @@
 								 
 								var oldval =  TCarr_actualValSorted[negativeValueIndex[i]];
 								
-								var LinearityNewVal = (oldval - stepFix).toFixed(3);	
+								var LinearityNewVal = (oldval + stepFix).toFixed(3);	
 								//console.log("IN Minus old negative value "+oldval+"  new Value "+LinearityNewVal);
 								
 								 TCarr_actualValSorted.splice(negativeValueIndex[i], 1, parseFloat(LinearityNewVal));
@@ -1369,7 +1525,7 @@
 								 
 								var oldval =  TCarr_actualValSorted[positiveValueIndex[i]];
 							    //var idx = positiveValueIndex[i] - 1;
-								var LinearityNewVal = (oldval - stepFix).toFixed(3);	
+								var LinearityNewVal = (oldval + stepFix).toFixed(3);	
 								//console.log("IN Plus old positive value "+oldval+"  VALUE TOBE MINUS "+stepedby10arr[idx]+
 								//		"   new Value "+LinearityNewVal);
 								
@@ -1381,7 +1537,7 @@
 										
 							 if(-(defError) == n)
 								{
-								 $('#LinearityBottomminus').hide();
+								 $('#LinearityBottomplus').hide();
 								$('#LinearitySectionOneKnockData').hide();
 								// $('#LinearityKnockSuccess').html('');
 								$('#LinearityBottomKnockSuccess').html('<div class="alert alert-danger">Linearity Algorithm 2 not Adjusted!!!</div>');
@@ -1393,7 +1549,7 @@
 							
 							
 							 //console.log(TCarr_actualValSorted);
-								 drawGraph(TColdreadingSorted, TCarr_actualValSorted);	
+								 TC_Updategraph(TColdreadingSorted, TCarr_actualValSorted);	
 						           
 						   
 
@@ -1430,8 +1586,9 @@
 			 
 			 
 				// LINEARITY BOTTOM PLUS CLICK	 
-
-						 $('#LinearityBottomplus').bind("click",function (event) {
+//				     LinearityBottomminus  LinearityBottomplus
+					 
+						 $('#LinearityBottomminus').bind("click",function (event) {
 							 linearityAlgo2Cnt++;
 							 $('#LinearityBottomKnockSuccess').html('');
 
@@ -1441,7 +1598,7 @@
 								 var n = angle.toFixed(2);
 								 //console.log("angle "+n);
 							      
-								 $('#LinearityBottomminus').show();
+								 $('#LinearityBottomplus').show();
 								 
 								
 								 
@@ -1454,7 +1611,7 @@
 									 
 									var oldval =  TCarr_actualValSorted[negativeValueIndex[i]];
 									
-									var LinearityNewVal = (oldval + stepFix).toFixed(3);	
+									var LinearityNewVal = (oldval - stepFix).toFixed(3);	
 									//console.log("Plus old negative value "+oldval +"  new Value "+LinearityNewVal);
 									
 									 TCarr_actualValSorted.splice(negativeValueIndex[i], 1, parseFloat(LinearityNewVal));
@@ -1467,7 +1624,7 @@
 									 
 									var oldval =  TCarr_actualValSorted[positiveValueIndex[i]];
 								    //var idx = positiveValueIndex[i] - 1;
-									var LinearityNewVal = (oldval + stepFix).toFixed(3);	
+									var LinearityNewVal = (oldval - stepFix).toFixed(3);	
 									//console.log("IN Plus old positive value "+oldval+"  VALUE TOBE MINUS "+stepedby10arr[idx]+
 									//		"   new Value "+LinearityNewVal);
 									
@@ -1478,7 +1635,7 @@
 											
 								 if(defError == n)
 									{
-									 $('#LinearityBottomplus').hide();
+									 $('#LinearityBottomminus').hide();
 									 $('#LinearitySectionTwoKnockData').hide();
 									// $("#LinearityTopKnotch").prop("hidden", false);
 									// $("#LinearityBottomKnotch").prop("hidden", false);
@@ -1491,7 +1648,7 @@
 								
 								
 								 //console.log(TCarr_actualValSorted);
-									 drawGraph(TColdreadingSorted, TCarr_actualValSorted);	
+									 TC_Updategraph(TColdreadingSorted, TCarr_actualValSorted);	
 							
 							    
 							     var $elem = $('.icon-repeat');
@@ -1698,7 +1855,7 @@
 							
 							
 							 //console.log(TCarr_actualValSorted);
-								 drawGraph(TColdreadingSorted, TCarr_actualValSorted);	
+								 TC_Updategraph(TColdreadingSorted, TCarr_actualValSorted);	
 						
 						    
 						     var $elem = $('.icon-repeat');
@@ -1797,7 +1954,7 @@
 							
 							
 							 //console.log(TCarr_actualValSorted);
-								 drawGraph(TColdreadingSorted, TCarr_actualValSorted);	
+								 TC_Updategraph(TColdreadingSorted, TCarr_actualValSorted);	
 						
 						    
 						     var $elem = $('.icon-repeat');
@@ -1909,8 +2066,8 @@
 		TC_IOtable += '</tbody>'
 
 				+ '</table>'
-               + '<div class="col-md-12" ><p>After few months I/P converter is not working properly.  As a maintenance engineer, Please attend the fault &nbsp;&nbsp; </p>'
-				
+         //      + '<div class="col-md-12" ><p>After few months I/P converter is not working properly.  As a maintenance engineer, Please attend the fault &nbsp;&nbsp; </p>'
+				+ '<div class="col-md-12" ><p>After few months it is observed that I/P converteris not working properly. As a maintenance engineer, please identify and rectify the fault &nbsp;&nbsp; </p>'
                + '<button id="TC_FaultChecking">Next level</button>'
 				+'</div>'
 				TC_IOtable += '</div>'
@@ -1961,9 +2118,18 @@
 		TCCalibrationData.tcLinearAlgo2AdjustCnt = linearityAlgo2Cnt;
 		TCCalibrationData.tcLinearAlgo3AdjustCnt = linearityAlgo3Cnt;
 		
+		minutes = document.getElementById("minutes").textContent;
+		seconds = document.getElementById("seconds").textContent;        		
+//		console.log(minutes+":"+seconds);
+		
+		TCCalibrationData.tcCalibrationTimeInMin = minutes;		
+		TCCalibrationData.tcCalibrationTimeInSec = seconds;
+		
 		ExpTrackData.tcCalibrationData = TCCalibrationData;
 		
 //		console.log(ExpTrackData);
+		
+		stop_timer();
 		
 		$('#TC_FaultChecking').on('click', function() {
 			//console.log("entered in fault" +TCarr_actualValSorted);
@@ -1985,6 +2151,203 @@
 	
 	
 	function drawGraph(TColdreadingSorted, TCarr_actualValSorted){
+//		var OldValue = [];
+//		var StdValue = [];
+//		for (var j = 0; j < TColdreadingSorted.length; j++) {
+//			var olValueJson = {
+//				x : TColdreadingSorted[j],
+//				y : TCarr_actualValSorted[j],
+//				markerType : "circle",
+//				markerSize : 10
+//
+//			};
+//			OldValue.push(olValueJson);
+//			var stdValueJson = {
+//					x : TColdreadingSorted[j],
+//					y : TCarr_stdValSorted[j],
+//					markerType : "circle",
+//					markerSize : 10
+//
+//				};
+//			StdValue.push(stdValueJson);
+//			
+//		}
+		// console.log(OldValue);
+//		var chart = new CanvasJS.Chart("TC_chartContainer_calibration",
+//				{
+//					animationEnabled : true,
+//					theme : "light2",
+//					title : {
+//						text : "Temperature Control System (TY 100)",
+//						fontSize : 20,
+//					},
+//
+//					axisX : {
+//						title : "Input(mA)",
+//						crosshair : {
+//							enabled : true,
+//							snapToDataPoint : true
+//						},
+//					// ticks: {suggestedMin: 2, max:6}
+//					},
+//					axisY : {
+//						title : "Output(kg/cm²)",
+//						minimum : -0.5,
+//						maximum : 1.5
+//					},
+//
+//					toolTip : {
+//						shared : true
+//					},
+//					legend : {
+//						cursor : "pointer",
+//						verticalAlign : "bottom",
+//						horizontalAlign : "right",
+//						dockInsidePlotArea : true,
+//						itemclick : toogleDataSeries
+//					},
+//					data : [  {
+//						type : "line",
+//						showInLegend : true,
+//						name : "Standard Output",
+//						// lineDashType: "dash",
+//						color : "#39FF14",
+//						dataPoints : [ {
+//							x : lowerSpLevel,
+//							y : lowerOutputLevel 
+//						}, {
+//							x : higherSpLevel,
+//							y : higherOutputLevel
+//						} ]
+//					}, {
+//						type : "scatter",
+//						showInLegend : true,
+//						name : "Observed Output",
+//						markerType : "circle",
+//						// xValueFormatString: "DD MMM,
+//						// YYYY",
+//						color : "#F08080",
+//
+//						dataPoints : OldValue
+//					}
+//					/*, {
+//						type : "scatter",
+//						showInLegend : true,
+//						name : "Observed Output",
+//						markerType : "triangle",
+//						// xValueFormatString: "DD MMM,
+//						// YYYY",
+//						color : "#000",
+//
+//						dataPoints : StdValue
+//					}*/
+//					
+//					]
+//				});
+//		chart.render();
+//
+//		function toogleDataSeries(e) {
+//			if (typeof (e.dataSeries.visible) === "undefined"
+//					|| e.dataSeries.visible) {
+//				e.dataSeries.visible = false;
+//			} else {
+//				e.dataSeries.visible = true;
+//			}
+//			chart.render();
+//		}
+//		
+		 
+		TCDrowGraph();
+		TC_Updategraph(TColdreadingSorted, TCarr_actualValSorted);
+	}
+	
+	
+	function TCDrowGraph(){
+		  datapoint1Arr = [];
+			 datapoint2Arr = [];
+		 chart = new CanvasJS.Chart("TC_chartContainer_calibration",
+				{
+			 animationEnabled : true,
+				theme : "light2",
+				title : {
+					text : "Temperature Control System (TY 100)",
+					fontSize : 20,
+				},
+
+				axisX : {
+					title : "Input(mA)",
+					crosshair : {
+						enabled : true,
+						snapToDataPoint : true
+					},
+				// ticks: {suggestedMin: 2, max:6}
+				},
+				axisY : {
+					title : "Output(kg/cm²)",
+					minimum : -0.5,
+					maximum : 1.5
+				},
+
+				toolTip : {
+					shared : true
+				},
+				legend : {
+					cursor : "pointer",
+					verticalAlign : "bottom",
+					horizontalAlign : "right",
+					dockInsidePlotArea : true,
+					itemclick : toogleDataSeries
+				},
+					data : [ 
+						{
+						type : "scatter",
+						showInLegend : true,
+						name : "Standard Output",
+						// lineDashType: "dash",
+						
+						color : "#F08080",
+						dataPoints :  datapoint1Arr
+					}, 
+					{
+						type : "line",
+						showInLegend : true,
+						name : "Observed Output",
+						markerType : "circle",
+						// xValueFormatString: "DD MMM,
+						// YYYY",
+						color : "#39FF14",
+
+						dataPoints : datapoint2Arr
+					}
+					/*, {
+						type : "scatter",
+						showInLegend : true,
+						name : "Observed Output",
+						markerType : "triangle",
+						// xValueFormatString: "DD MMM,
+						// YYYY",
+						color : "#000",
+
+						dataPoints : StdValue
+					}*/
+					
+					]
+				});
+//		chart.render();
+
+		function toogleDataSeries(e) {
+			if (typeof (e.dataSeries.visible) === "undefined"
+					|| e.dataSeries.visible) {
+				e.dataSeries.visible = false;
+			} else {
+				e.dataSeries.visible = true;
+			}
+			//chart.render();
+		}
+		
+	}
+	
+	function TC_Updategraph(TColdreadingSorted, TCarr_actualValSorted){
 		var OldValue = [];
 		var StdValue = [];
 		for (var j = 0; j < TColdreadingSorted.length; j++) {
@@ -2006,95 +2369,23 @@
 			StdValue.push(stdValueJson);
 			
 		}
-		// console.log(OldValue);
-		var chart = new CanvasJS.Chart("TC_chartContainer_calibration",
-				{
-					animationEnabled : true,
-					theme : "light2",
-					title : {
-						text : "Temperature Control System (TY 100)",
-						fontSize : 20,
-					},
-
-					axisX : {
-						title : "Input(mA)",
-						crosshair : {
-							enabled : true,
-							snapToDataPoint : true
-						},
-					// ticks: {suggestedMin: 2, max:6}
-					},
-					axisY : {
-						title : "Output(kg/cm²)",
-						minimum : -0.5,
-						maximum : 1.5
-					},
-
-					toolTip : {
-						shared : true
-					},
-					legend : {
-						cursor : "pointer",
-						verticalAlign : "bottom",
-						horizontalAlign : "right",
-						dockInsidePlotArea : true,
-						itemclick : toogleDataSeries
-					},
-					data : [  {
-						type : "line",
-						showInLegend : true,
-						name : "Standard Output",
-						// lineDashType: "dash",
-						color : "#39FF14",
-						dataPoints : [ {
-							x : lowerSpLevel,
-							y : lowerOutputLevel 
-						}, {
-							x : higherSpLevel,
-							y : higherOutputLevel
-						} ]
-					}, {
-						type : "scatter",
-						showInLegend : true,
-						name : "Observed Output",
-						markerType : "circle",
-						// xValueFormatString: "DD MMM,
-						// YYYY",
-						color : "#F08080",
-
-						dataPoints : OldValue
-					}
-					/*, {
-						type : "scatter",
-						showInLegend : true,
-						name : "Observed Output",
-						markerType : "triangle",
-						// xValueFormatString: "DD MMM,
-						// YYYY",
-						color : "#000",
-
-						dataPoints : StdValue
-					}*/
-					
-					]
-				});
+		
+		datapoint2Arr = OldValue;
+		chart.options.data[0].dataPoints = datapoint2Arr; 
+		
+		
+		datapoint1Arr.push({
+			x : lowerSpLevel,
+			y : lowerOutputLevel 
+		}, {
+			x : higherSpLevel,
+			y : higherOutputLevel
+		} );
+		
+		chart.options.data[1].dataPoints = datapoint1Arr; 
+		chart.options.data[1].markerType = "circle";
 		chart.render();
-
-		function toogleDataSeries(e) {
-			if (typeof (e.dataSeries.visible) === "undefined"
-					|| e.dataSeries.visible) {
-				e.dataSeries.visible = false;
-			} else {
-				e.dataSeries.visible = true;
-			}
-			chart.render();
-		}
-		
-		 
-		
-		
 	}
-	
 	
 	
 	

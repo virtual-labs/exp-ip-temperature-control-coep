@@ -82,27 +82,86 @@ showDiscription = function(number) {
 			'click', function() {
 				var appId = $( "select#levels" ).val();
 				
+				var theoryTime = {};
+				
 				if(appId == "1"){
 					
 					$("#next").hide();
+					
+					
+					
+					minutes = document.getElementById("minutes").textContent;
+	        		seconds = document.getElementById("seconds").textContent;        		
+//	        		console.log(minutes+":"+seconds);
+	        		
+	        		
+	        		theoryTime.minutes = minutes;
+	        		theoryTime.seconds = seconds;
+	        		
+	        		ExpTrackData.theoryData = theoryTime;
+//	        		console.log(ExpTrackData);
+					
+					
+					
 					showLC_Questions(appId);
 					$("#levels").prop("disabled", true);
 				}
 				if(appId == "2"){
 					
 					$("#next").hide();
+					
+					minutes = document.getElementById("minutes").textContent;
+	        		seconds = document.getElementById("seconds").textContent;        		
+//	        		console.log(minutes+":"+seconds);
+	        		
+	        		
+	        		theoryTime.minutes = minutes;
+	        		theoryTime.seconds = seconds;
+	        		
+	        		ExpTrackData.theoryData = theoryTime;
+//	        		console.log(ExpTrackData);
+					
+					
 					showTC_Questions(appId);
 					$("#levels").prop("disabled", true);
 				}
 				if(appId == "3"){
 					
 					$("#next").hide();
+					
+					minutes = document.getElementById("minutes").textContent;
+	        		seconds = document.getElementById("seconds").textContent;        		
+//	        		console.log(minutes+":"+seconds);
+	        		
+	        		
+	        		theoryTime.minutes = minutes;
+	        		theoryTime.seconds = seconds;
+	        		
+	        		ExpTrackData.theoryData = theoryTime;
+//	        		console.log(ExpTrackData);
+					
+					
+					
+					
 					showPC_Questions(appId);
 					$("#levels").prop("disabled", true);
 				}
 				if(appId == "4"){
 					
 					$("#next").hide();
+					
+					minutes = document.getElementById("minutes").textContent;
+	        		seconds = document.getElementById("seconds").textContent;        		
+//	        		console.log(minutes+":"+seconds);
+	        		
+	        		
+	        		theoryTime.minutes = minutes;
+	        		theoryTime.seconds = seconds;
+	        		
+	        		ExpTrackData.theoryData = theoryTime;
+//	        		console.log(ExpTrackData);
+					
+					
 					showFC_Questions(appId);
 					$("#levels").prop("disabled", true);
 				}

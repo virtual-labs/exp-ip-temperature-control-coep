@@ -20,6 +20,12 @@
 	 var zeroAmiValFlag = 0;
 	 var OutputValue = 0;
 	 var inputValue = 4;
+	 
+	 
+	 var lcflagSpan_direct = false;
+	 
+	 
+	 
 	 LColdreadingSorted = LColdreading.slice();
 	 LColdreadingSorted.sort(function(a, b) {
 			return a - b
@@ -109,7 +115,8 @@
 	$("#TestNextDiv").html(LC_calibrationData);
 
 	
-	
+	stop_timer();
+	set_timer();
 	
 	
 	$('#submit_LCzeroerror_Calibration').on('click', function() {
@@ -127,7 +134,9 @@
 									        
 					if(($("#zeroerror").val() == '') ||  isNaN($("#zeroerror").val())){
 						
-						alertify.alert("Please Enter The Answer In Numeric Only");
+						alertify.alert("Alert","Please Enter The Answer In Numeric Only");
+						$(".ajs-header").css("background-color","#ce6058");
+
 						
 					}else{
 						
@@ -157,12 +166,15 @@
 
 							}else if(LC0Err_cnt == 4){
 								
-								alertify.alert("Answer is incorrect");
-								alertify.alert("Correct Answer is: " + LC_ZeroError.toFixed(3));
-							}
-							else{
+								alertify.alert("Alert","Answer is incorrect");
+								alertify.alert("Alert","Correct Answer is: " + LC_ZeroError.toFixed(3));
+								$(".ajs-header").css("background-color","#ce6058");
+
+							}else{
 								
-								alertify.alert("Answer is incorrect");
+								alertify.alert("Alert","Answer is incorrect");
+								$(".ajs-header").css("background-color","#ce6058");
+
 								LC0Err_cnt++;
 							}
 							
@@ -187,8 +199,9 @@
 							        
 			if(($("#spanerror").val() == '') ||  isNaN($("#spanerror").val())){
 				
-				alertify.alert("Please Enter The Answer In Numeric Only");
-				
+				alertify.alert("Alert","Please Enter The Answer In Numeric Only");
+				$(".ajs-header").css("background-color","#ce6058");
+
 			}else{
 				
 				
@@ -214,11 +227,15 @@
 //						alertify.alert("Correct Answer is: " + LC_ZeroError.toFixed(3));
 					}else if(LCSpanErr_cnt == 4){
 						
-						alertify.alert("Answer is incorrect");
-						alertify.alert("Correct Answer is: " + LC_SpanError.toFixed(3));
+						alertify.alert("Alert","Answer is incorrect");
+						alertify.alert("Alert","Correct Answer is: " + LC_SpanError.toFixed(3));
+						$(".ajs-header").css("background-color","#ce6058");
+
 					}else{
 						
-						alertify.alert("Answer is incorrect");
+						alertify.alert("Alert","Answer is incorrect");
+						$(".ajs-header").css("background-color","#ce6058");
+
 						LCSpanErr_cnt++;
 					}
 					
@@ -311,7 +328,9 @@
 	         
 		if(($("#linearity").val() == '') ||  isNaN($("#linearity").val())){
 				
-				alertify.alert("Please Enter The Answer In Numeric Only");
+				alertify.alert("Alert","Please Enter The Answer In Numeric Only");
+				$(".ajs-header").css("background-color","#ce6058");
+
 				
 			}else{
 				
@@ -338,11 +357,15 @@
 //					alertify.alert("Correct Answer is: " + LC_ZeroError.toFixed(3));
 				}else if(LC_LinearityErr_cnt == 4){
 						
-						alertify.alert("Answer is incorrect");
-						alertify.alert("Correct Answer is: " + LC_linearity.toFixed(3));
+						alertify.alert("Alert","Answer is incorrect");
+						alertify.alert("Alert","Correct Answer is: " + LC_linearity.toFixed(3));
+						$(".ajs-header").css("background-color","#ce6058");
+
 					}else{
 						
-						alertify.alert("Answer is incorrect");
+						alertify.alert("Alert","Answer is incorrect");
+						$(".ajs-header").css("background-color","#ce6058");
+
 						LC_LinearityErr_cnt++;
 					}
 					
@@ -372,7 +395,9 @@
 		   
 		   if(($("#Accuracy").val() == '') ||  isNaN($("#Accuracy").val())){
 				
-				alertify.alert("Please Enter The Answer In Numeric Only");
+				alertify.alert("Alert","Please Enter The Answer In Numeric Only");
+				$(".ajs-header").css("background-color","#ce6058");
+
 				
 			}else{
 				
@@ -405,11 +430,15 @@
 //						alertify.alert("Correct Answer is: " + LC_ZeroError.toFixed(3));
 					}else if(LC_AccuracyErr_cnt == 4){
 						
-						alertify.alert("Answer is incorrect");
-						alertify.alert("Correct Answer is: " + Avg_Accuracy.toFixed(3));
+						alertify.alert("Alert","Answer is incorrect");
+						alertify.alert("Alert","Correct Answer is: " + Avg_Accuracy.toFixed(3));
+						$(".ajs-header").css("background-color","#ce6058");
+
 					}else{
 						
-						alertify.alert("Answer is incorrect");
+						alertify.alert("Alert","Answer is incorrect");
+						$(".ajs-header").css("background-color","#ce6058");
+
 						LC_AccuracyErr_cnt++;
 					}
 					
@@ -529,7 +558,41 @@
 						//$('#plus').hide();
 						ZeroAnimMinus(LCarr_actualValSorted[0]);
 						  $("#ZeroangleVal").val(LCarr_actualValSorted[0]);
-						drawGraph(LColdreadingSorted, LCarr_actualValSorted);	
+						  
+						  
+						  if(lcflagSpan_direct == false){
+								 
+								 for( var i= 1; i<=(LCarr_actualValSorted.length-1); i++ )
+									{
+									
+									var oldval =  LCarr_actualValSorted[i];
+									var LinearityNewVal = (oldval - stepFix).toFixed(3);	
+									//console.log("oldvalue "+oldval+"new Value "+LinearityNewVal);
+									
+									 LCarr_actualValSorted.splice(i, 1, parseFloat(LinearityNewVal));
+									
+									 
+									} 
+							 } else{
+								 
+								 for( var i= 1; i<=(LCarr_actualValSorted.length-2); i++ )
+									{
+									
+									var oldval =  LCarr_actualValSorted[i];
+									var LinearityNewVal = (oldval - stepFix).toFixed(3);	
+									//console.log("oldvalue "+oldval+"new Value "+LinearityNewVal);
+									
+									 LCarr_actualValSorted.splice(i, 1, parseFloat(LinearityNewVal));
+									
+									 
+									} 
+							 }
+						  
+						  
+						  
+						  
+						  
+						LC_Updategraph(LColdreadingSorted, LCarr_actualValSorted);	
 						
 						//console.log(LCarr_actualValSorted);
 						if(flag == 0){
@@ -562,7 +625,42 @@
 								 //console.log(LCarr_actualValSorted);
 								 ZeroAnimMinus(LCarr_actualValSorted[0]);
 								  $("#ZeroangleVal").val(LCarr_actualValSorted[0]);
-								 drawGraph(LColdreadingSorted, LCarr_actualValSorted);	
+								  
+								  
+								  if(lcflagSpan_direct == false){
+										 
+										 for( var i= 1; i<=(LCarr_actualValSorted.length-1); i++ )
+											{
+											
+											var oldval =  LCarr_actualValSorted[i];
+											var LinearityNewVal = (oldval - stepFix).toFixed(3);	
+											//console.log("oldvalue "+oldval+"new Value "+LinearityNewVal);
+											
+											 LCarr_actualValSorted.splice(i, 1, parseFloat(LinearityNewVal));
+											
+											 
+											} 
+									 } else{
+										 
+										 for( var i= 1; i<=(LCarr_actualValSorted.length-2); i++ )
+											{
+											
+											var oldval =  LCarr_actualValSorted[i];
+											var LinearityNewVal = (oldval - stepFix).toFixed(3);	
+											//console.log("oldvalue "+oldval+"new Value "+LinearityNewVal);
+											
+											 LCarr_actualValSorted.splice(i, 1, parseFloat(LinearityNewVal));
+											
+											 
+											} 
+									 }
+								  
+								  
+								  
+								  
+								  
+								  
+								 LC_Updategraph(LColdreadingSorted, LCarr_actualValSorted);	
 				           }
 				   
 
@@ -701,6 +799,40 @@
 						
 					    LCarr_actualValSorted.splice(0, 1, parseFloat(ZeroValue));
 					    //console.log(LCarr_actualValSorted);
+					    
+					    
+					    
+					    if(lcflagSpan_direct == false){
+							 
+							 for( var i= 1; i<=(LCarr_actualValSorted.length-1); i++ )
+								{
+								
+								var oldval =  LCarr_actualValSorted[i];
+								var LinearityNewVal = (oldval + parseFloat(stepFix)).toFixed(3);	
+								//console.log("oldvalue "+oldval+"new Value "+LinearityNewVal);
+								
+								 LCarr_actualValSorted.splice(i, 1, parseFloat(LinearityNewVal));
+								
+								 
+								} 
+						 } else{
+							 
+							 for( var i= 1; i<=(LCarr_actualValSorted.length-2); i++ )
+								{
+								
+								var oldval =  LCarr_actualValSorted[i];
+								var LinearityNewVal = (oldval + parseFloat(stepFix)).toFixed(3);	
+								//console.log("oldvalue "+oldval+"new Value "+LinearityNewVal);
+								
+								 LCarr_actualValSorted.splice(i, 1, parseFloat(LinearityNewVal));
+								
+								 
+								} 
+						 }
+					    
+					    
+					    
+					    
 					 
 					
 				    
@@ -727,7 +859,7 @@
 						$('#ZeroErrorKnockSuccess').html('<div class="alert alert-danger">Zero not Adjusted!!!</div>');
 						}
 				     
-				     drawGraph(LColdreadingSorted, LCarr_actualValSorted);	
+				     LC_Updategraph(LColdreadingSorted, LCarr_actualValSorted);	
 				     
 				 }
 				 
@@ -878,6 +1010,23 @@
 				 
 				 ZeroValue = parseFloat((ZeroValue + parseFloat(stepFix)).toFixed(3));
 				 
+				 
+				 
+				 
+				 for( var i= 1; i<=(LCarr_actualValSorted.length-2); i++ )
+					{
+					
+					var oldval =  LCarr_actualValSorted[i];
+					var LinearityNewVal = (oldval + parseFloat(stepFix)).toFixed(3);	
+					//console.log("oldvalue "+oldval+"new Value "+LinearityNewVal);
+					
+					 LCarr_actualValSorted.splice(i, 1, parseFloat(LinearityNewVal));
+					
+					 
+					}
+				 
+				 
+				 
 				//	//console.log(SpanValue);
 					var SpanValueFix = SpanValue.toFixed(0);
 					
@@ -919,7 +1068,7 @@
 			     $("#SpanangleVal").val(LCarr_actualValSorted[ArrayLeng - 1 ]);
 			     spanAnimMinus(LCarr_actualValSorted[ArrayLeng - 1 ]);
 			     
-			     drawGraph(LColdreadingSorted, LCarr_actualValSorted);	
+			     LC_Updategraph(LColdreadingSorted, LCarr_actualValSorted);	
 			 }
 				 function spanAnimMinus(SpanAnimMinusValue)
 				 {
@@ -980,6 +1129,24 @@
 					 
 					 ZeroValue = parseFloat((ZeroValue - parseFloat(stepFix)).toFixed(3));
 					 
+					 
+					 
+					 for( var i= 1; i<=(LCarr_actualValSorted.length-2); i++ )
+						{
+						
+						var oldval =  LCarr_actualValSorted[i];
+						var LinearityNewVal = (oldval - parseFloat(stepFix)).toFixed(3);	
+						//console.log("oldvalue "+oldval+"new Value "+LinearityNewVal);
+						
+						 LCarr_actualValSorted.splice(i, 1, parseFloat(LinearityNewVal));
+						
+						 
+						}
+					 
+					 
+					 
+					 
+					 
 						//console.log(SpanValue);
 						var SpanValueFix = SpanValue.toFixed(0);
 						if(range.toFixed(2) == n)
@@ -991,7 +1158,7 @@
 							 zeroAniVal = 0;
 							 inputValue = 4;
 							 spanAnimPlus(LCarr_actualValSorted[ArrayLeng - 1 ]);
-							drawGraph(LColdreadingSorted, LCarr_actualValSorted);	
+							LC_Updategraph(LColdreadingSorted, LCarr_actualValSorted);	
 							//alertify.alert("Span Error Adjusted Successfully!!!");
 							//$('#SpanErrorKnockData').hide();
 							//$('#ZeroErrorKnockData').show();
@@ -1001,6 +1168,7 @@
 							//$('#ZeroErrorKnockData').hide();
 							$('#SpanErrorKnockSuccess').html('');
 							$('#SpanErrorKnockSuccess').html('<div class="alert alert-success">Span Adjusted Successfully!!!</div><div class="alert alert-danger">But Zero affected. <br/>Adjust Zero Again</div>');
+							lcflagSpan_direct = true;
 							LCZero_Calibartion(range, 1);
 							
 							
@@ -1015,7 +1183,7 @@
 					    $("#SpanangleVal").val(LCarr_actualValSorted[ArrayLeng - 1 ]);
 					    inputValue = 4;
 					    spanAnimPlus(LCarr_actualValSorted[ArrayLeng - 1 ]);
-					    drawGraph(LColdreadingSorted, LCarr_actualValSorted);	
+					    LC_Updategraph(LColdreadingSorted, LCarr_actualValSorted);	
 							}
 						
 						
@@ -1111,10 +1279,10 @@
 /// LINEARITY TOP MINUS CLICK  
 			 
 		
+//			 LinearityTopplus  LinearityTopminus
 			 
-			 
-			 $('#LinearityTopminus').bind("click",function (event) {
-				 linearityAlgo1Cnt++;
+			 $('#LinearityTopplus').bind("click",function (event) {
+					linearityAlgo1Cnt++;
 				 $('#LinearityTopKnockSuccess').html('');
 				
                  //console.log(defError);
@@ -1123,7 +1291,7 @@
 					 var n = angle.toFixed(2);
 					 //console.log("angle "+n);
 				      
-					 $('#LinearityTopplus').show();
+					 $('#LinearityTopminus').show();
 
 					
 					
@@ -1131,7 +1299,7 @@
 						{
 						
 						var oldval =  LCarr_actualValSorted[i];
-						var LinearityNewVal = (oldval - stepFix).toFixed(3);	
+						var LinearityNewVal = (oldval + stepFix).toFixed(3);	
 						//console.log("oldvalue "+oldval+"new Value "+LinearityNewVal);
 						
 						 LCarr_actualValSorted.splice(i, 1, parseFloat(LinearityNewVal));
@@ -1141,7 +1309,7 @@
 								
 					 if(defError == n)
 						{
-						 $('#LinearityTopminus').hide();
+						 $('#LinearityTopplus').hide();
 						 $('#LinearitySectionOneKnockData').hide();
 							// $('#LinearityKnockSuccess').html('');
 						$('#LinearityTopKnockSuccess').html('<div class="alert alert-success">Linearity Algorithm 1 Adjusted Successfully!!!</div>');
@@ -1166,7 +1334,7 @@
 					
 					
 					 //console.log(LCarr_actualValSorted);
-						 drawGraph(LColdreadingSorted, LCarr_actualValSorted);	
+						 LC_Updategraph(LColdreadingSorted, LCarr_actualValSorted);	
 				
 				    
 				     var $elem = $('.icon-repeat');
@@ -1194,9 +1362,9 @@
 				 });
 			 
 		// LINEARITY TOP PLUS CLICK	 
-
-				 $('#LinearityTopplus').bind("click",function (event) {
-					 linearityAlgo1Cnt++;
+//			 LinearityTopplus  LinearityTopminus
+				 $('#LinearityTopminus').bind("click",function (event) {
+						linearityAlgo1Cnt++;
 
 	                 //console.log(defError);
 					 if(angle >= -(defError)){
@@ -1204,7 +1372,7 @@
 						 var n = angle.toFixed(2);
 						 //console.log("angle "+n);
 					      
-						 $('#LinearityTopminus').show();
+						 $('#LinearityTopplus').show();
 
 						
 						
@@ -1212,7 +1380,7 @@
 							{
 							
 							var oldval =  LCarr_actualValSorted[i];
-							var LinearityNewVal = (oldval + stepFix).toFixed(3);	
+							var LinearityNewVal = (oldval - stepFix).toFixed(3);	
 							//console.log("oldvalue "+oldval+"  new Value "+LinearityNewVal);
 							
 							 LCarr_actualValSorted.splice(i, 1, parseFloat(LinearityNewVal));
@@ -1222,7 +1390,7 @@
 									
 						 if((-defError) == n)
 							{
-							 $('#LinearityTopplus').hide();
+							 $('#LinearityTopminus').hide();
 							// $('#LinearityKnockSuccess').html('');
 							 $('#LinearityTopKnockSuccess').html('<div class="alert alert-danger">Linearity Algorithm 1 not Adjusted </div>');
 							 }
@@ -1230,7 +1398,7 @@
 						
 						
 						 //console.log(LCarr_actualValSorted);
-						 drawGraph(LColdreadingSorted, LCarr_actualValSorted);	
+						 LC_Updategraph(LColdreadingSorted, LCarr_actualValSorted);	
 				
 					    
 					     var $elem = $('.icon-repeat');
@@ -1331,9 +1499,9 @@
 			
 			/// LINEARITY BOTTOM MINUS CLICK  
 			 
-			
+//			     LinearityBottomminus  LinearityBottomplus
 					 
-					 $('#LinearityBottomminus').bind("click",function (event) {
+					 $('#LinearityBottomplus').bind("click",function (event) {
 
 						 linearityAlgo2Cnt++;
 						
@@ -1343,7 +1511,7 @@
 							 var n = angle.toFixed(2);
 							 //console.log("angle "+n);
 						      
-							 $('#LinearityBottomplus').show();
+							 $('#LinearityBottomminus').show();
 
 							
 							 //console.log("negative value Index "+negativeValueIndex);
@@ -1353,7 +1521,7 @@
 								 
 								var oldval =  LCarr_actualValSorted[negativeValueIndex[i]];
 								
-								var LinearityNewVal = (oldval - stepFix).toFixed(3);	
+								var LinearityNewVal = (oldval + stepFix).toFixed(3);	
 								//console.log("IN Minus old negative value "+oldval+"  new Value "+LinearityNewVal);
 								
 								 LCarr_actualValSorted.splice(negativeValueIndex[i], 1, parseFloat(LinearityNewVal));
@@ -1368,7 +1536,7 @@
 								 
 								var oldval =  LCarr_actualValSorted[positiveValueIndex[i]];
 							    //var idx = positiveValueIndex[i] - 1;
-								var LinearityNewVal = (oldval - stepFix).toFixed(3);	
+								var LinearityNewVal = (oldval + stepFix).toFixed(3);	
 								//console.log("IN Plus old positive value "+oldval+"  VALUE TOBE MINUS "+stepedby10arr[idx]+
 								//		"   new Value "+LinearityNewVal);
 								
@@ -1380,7 +1548,7 @@
 										
 							 if(-(defError) == n)
 								{
-								 $('#LinearityBottomminus').hide();
+								 $('#LinearityBottomplus').hide();
 								$('#LinearitySectionOneKnockData').hide();
 								// $('#LinearityKnockSuccess').html('');
 								$('#LinearityBottomKnockSuccess').html('<div class="alert alert-danger">Linearity Algorithm 2 not Adjusted!!!</div>');
@@ -1392,7 +1560,7 @@
 							
 							
 							 //console.log(LCarr_actualValSorted);
-								 drawGraph(LColdreadingSorted, LCarr_actualValSorted);	
+								 LC_Updategraph(LColdreadingSorted, LCarr_actualValSorted);	
 						           
 						   
 
@@ -1430,7 +1598,9 @@
 			 
 				// LINEARITY BOTTOM PLUS CLICK	 
 
-						 $('#LinearityBottomplus').bind("click",function (event) {
+//				     LinearityBottomminus  LinearityBottomplus
+					 
+						 $('#LinearityBottomminus').bind("click",function (event) {
 							 linearityAlgo2Cnt++;
 							 $('#LinearityBottomKnockSuccess').html('');
 
@@ -1440,7 +1610,7 @@
 								 var n = angle.toFixed(2);
 								 //console.log("angle "+n);
 							      
-								 $('#LinearityBottomminus').show();
+								 $('#LinearityBottomplus').show();
 								 
 								
 								 
@@ -1453,7 +1623,7 @@
 									 
 									var oldval =  LCarr_actualValSorted[negativeValueIndex[i]];
 									
-									var LinearityNewVal = (oldval + stepFix).toFixed(3);	
+									var LinearityNewVal = (oldval - stepFix).toFixed(3);	
 									//console.log("Plus old negative value "+oldval +"  new Value "+LinearityNewVal);
 									
 									 LCarr_actualValSorted.splice(negativeValueIndex[i], 1, parseFloat(LinearityNewVal));
@@ -1466,7 +1636,7 @@
 									 
 									var oldval =  LCarr_actualValSorted[positiveValueIndex[i]];
 								    //var idx = positiveValueIndex[i] - 1;
-									var LinearityNewVal = (oldval + stepFix).toFixed(3);	
+									var LinearityNewVal = (oldval - stepFix).toFixed(3);	
 									//console.log("IN Plus old positive value "+oldval+"  VALUE TOBE MINUS "+stepedby10arr[idx]+
 									//		"   new Value "+LinearityNewVal);
 									
@@ -1477,7 +1647,7 @@
 											
 								 if(defError == n)
 									{
-									 $('#LinearityBottomplus').hide();
+									 $('#LinearityBottomminus').hide();
 									 $('#LinearitySectionTwoKnockData').hide();
 									// $("#LinearityTopKnotch").prop("hidden", false);
 									// $("#LinearityBottomKnotch").prop("hidden", false);
@@ -1490,7 +1660,7 @@
 								
 								
 								 //console.log(LCarr_actualValSorted);
-									 drawGraph(LColdreadingSorted, LCarr_actualValSorted);	
+									 LC_Updategraph(LColdreadingSorted, LCarr_actualValSorted);	
 							
 							    
 							     var $elem = $('.icon-repeat');
@@ -1697,7 +1867,7 @@
 							
 							
 							 //console.log(LCarr_actualValSorted);
-								 drawGraph(LColdreadingSorted, LCarr_actualValSorted);	
+								 LC_Updategraph(LColdreadingSorted, LCarr_actualValSorted);	
 						
 						    
 						     var $elem = $('.icon-repeat');
@@ -1796,7 +1966,7 @@
 							
 							
 							 //console.log(LCarr_actualValSorted);
-								 drawGraph(LColdreadingSorted, LCarr_actualValSorted);	
+								 LC_Updategraph(LColdreadingSorted, LCarr_actualValSorted);	
 						
 						    
 						     var $elem = $('.icon-repeat');
@@ -1960,9 +2130,20 @@
 		LCCalibrationData.lcLinearAlgo2AdjustCnt = linearityAlgo2Cnt;
 		LCCalibrationData.lcLinearAlgo3AdjustCnt = linearityAlgo3Cnt;
 		
+		minutes = document.getElementById("minutes").textContent;
+		seconds = document.getElementById("seconds").textContent;        		
+//		console.log(minutes+":"+seconds);
+		
+		LCCalibrationData.lcCalibrationTimeInMin = minutes;		
+		LCCalibrationData.lcCalibrationTimeInSec = seconds;
+		
+		
+		
 		ExpTrackData.lcCalibrationData = LCCalibrationData;
 		
 //		console.log(ExpTrackData);
+		
+		stop_timer();
 		
 		$('#LC_FaultChecking').on('click', function() {
 			//console.log("entered in fault" +LCarr_actualValSorted);
@@ -1984,84 +2165,157 @@
 	
 	
 	function drawGraph(LColdreadingSorted, LCarr_actualValSorted){
-		var OldValue = [];
-		var StdValue = [];
-		for (var j = 0; j < LColdreadingSorted.length; j++) {
-			var olValueJson = {
-				x : LColdreadingSorted[j],
-				y : LCarr_actualValSorted[j],
-				markerType : "circle",
-				markerSize : 10
-
-			};
-			OldValue.push(olValueJson);
-			var stdValueJson = {
-					x : LColdreadingSorted[j],
-					y : LCarr_stdValSorted[j],
-					markerType : "circle",
-					markerSize : 10
-
-				};
-			StdValue.push(stdValueJson);
-			
-		}
+		
+		LCDrowGraph();
+		 
+		LC_Updategraph(LColdreadingSorted, LCarr_actualValSorted)
+		
+		
+		
 		// console.log(OldValue);
-		var chart = new CanvasJS.Chart("LC_chartContainer_calibration",
+//		var chart = new CanvasJS.Chart("LC_chartContainer_calibration",
+//				{
+//					animationEnabled : true,
+//					theme : "light2",
+//					title : {
+//						text : "Level Control System (LY 100)",
+//						fontSize : 20,
+//					},
+//
+//					axisX : {
+//						title : "Input(mA)",
+//						crosshair : {
+//							enabled : true,
+//							snapToDataPoint : true
+//						},
+//					// ticks: {suggestedMin: 2, max:6}
+//					},
+//					axisY : {
+//						title : "Output(kg/cm²)",
+//						minimum : -0.5,
+//						maximum : 1.5
+//					},
+//
+//					toolTip : {
+//						shared : true
+//					},
+//					legend : {
+//						cursor : "pointer",
+//						verticalAlign : "bottom",
+//						horizontalAlign : "right",
+//						dockInsidePlotArea : true,
+//						itemclick : toogleDataSeries
+//					},
+//					data : [  {
+//						type : "line",
+//						showInLegend : true,
+//						name : "Standard Output",
+//						// lineDashType: "dash",
+//						color : "#39FF14",
+//						dataPoints : [ {
+//							x : lowerSpLevel,
+//							y : lowerOutputLevel 
+//						}, {
+//							x : higherSpLevel,
+//							y : higherOutputLevel
+//						} ]
+//					}, {
+//						type : "scatter",
+//						showInLegend : true,
+//						name : "Observed Output",
+//						markerType : "circle",
+//						// xValueFormatString: "DD MMM,
+//						// YYYY",
+//						color : "#F08080",
+//
+//						dataPoints : OldValue
+//					}
+//					/*, {
+//						type : "scatter",
+//						showInLegend : true,
+//						name : "Observed Output",
+//						markerType : "triangle",
+//						// xValueFormatString: "DD MMM,
+//						// YYYY",
+//						color : "#000",
+//
+//						dataPoints : StdValue
+//					}*/
+//					
+//					]
+//				});
+//		chart.render();
+//
+//		function toogleDataSeries(e) {
+//			if (typeof (e.dataSeries.visible) === "undefined"
+//					|| e.dataSeries.visible) {
+//				e.dataSeries.visible = false;
+//			} else {
+//				e.dataSeries.visible = true;
+//			}
+//			chart.render();
+//		}
+//		
+		 
+		
+		
+	}
+	function LCDrowGraph(){
+		  datapoint1Arr = [];
+			 datapoint2Arr = [];
+		 chart = new CanvasJS.Chart("LC_chartContainer_calibration",
 				{
-					animationEnabled : true,
-					theme : "light2",
-					title : {
-						text : "Level Control System (LY 100)",
-						fontSize : 20,
-					},
+			 animationEnabled : true,
+				theme : "light2",
+				title : {
+					text : "Level Control System (LY 100)",
+					fontSize : 20,
+				},
 
-					axisX : {
-						title : "Input(mA)",
-						crosshair : {
-							enabled : true,
-							snapToDataPoint : true
-						},
-					// ticks: {suggestedMin: 2, max:6}
+				axisX : {
+					title : "Input(mA)",
+					crosshair : {
+						enabled : true,
+						snapToDataPoint : true
 					},
-					axisY : {
-						title : "Output(kg/cm²)",
-						minimum : -0.5,
-						maximum : 1.5
-					},
+				// ticks: {suggestedMin: 2, max:6}
+				},
+				axisY : {
+					title : "Output(kg/cm²)",
+					minimum : -0.5,
+					maximum : 1.5
+				},
 
-					toolTip : {
-						shared : true
-					},
-					legend : {
-						cursor : "pointer",
-						verticalAlign : "bottom",
-						horizontalAlign : "right",
-						dockInsidePlotArea : true,
-						itemclick : toogleDataSeries
-					},
-					data : [  {
-						type : "line",
+				toolTip : {
+					shared : true
+				},
+				legend : {
+					cursor : "pointer",
+					verticalAlign : "bottom",
+					horizontalAlign : "right",
+					dockInsidePlotArea : true,
+					itemclick : toogleDataSeries
+				},
+					data : [ 
+						{
+						type : "scatter",
 						showInLegend : true,
 						name : "Standard Output",
 						// lineDashType: "dash",
-						color : "#39FF14",
-						dataPoints : [ {
-							x : lowerSpLevel,
-							y : lowerOutputLevel 
-						}, {
-							x : higherSpLevel,
-							y : higherOutputLevel
-						} ]
-					}, {
-						type : "scatter",
+						
+						color : "#F08080",
+						dataPoints :  datapoint1Arr
+					}, 
+					{
+						type : "line",
 						showInLegend : true,
 						name : "Observed Output",
 						markerType : "circle",
 						// xValueFormatString: "DD MMM,
 						// YYYY",
-						color : "#F08080",
+						color : "#39FF14",
 
-						dataPoints : OldValue
+						dataPoints : datapoint2Arr
 					}
 					/*, {
 						type : "scatter",
@@ -2077,7 +2331,7 @@
 					
 					]
 				});
-		chart.render();
+//		chart.render();
 
 		function toogleDataSeries(e) {
 			if (typeof (e.dataSeries.visible) === "undefined"
@@ -2086,16 +2340,53 @@
 			} else {
 				e.dataSeries.visible = true;
 			}
-			chart.render();
+			//chart.render();
 		}
-		
-		 
-		
 		
 	}
 	
-	
-	
+	function LC_Updategraph(LColdreadingSorted, LCarr_actualValSorted){
+		var OldValue = [];
+		var StdValue = [];
+		
+		
+		for (var j = 0; j < LColdreadingSorted.length; j++) {
+			var olValueJson = {
+				x : LColdreadingSorted[j],
+				y : LCarr_actualValSorted[j],
+				markerType : "circle",
+				markerSize : 10
+
+			};
+			OldValue.push(olValueJson);
+//			var stdValueJson = {
+//					x : FColdreadingSorted[j],
+//					y : FCarr_stdValSorted[j],
+//					markerType : "circle",
+//					markerSize : 10
+	//
+//				};
+//			StdValue.push(stdValueJson);
+			
+		}
+		
+		datapoint2Arr = OldValue;
+		chart.options.data[0].dataPoints = datapoint2Arr; 
+		
+		
+		datapoint1Arr.push({
+			x : lowerSpLevel,
+			y : lowerOutputLevel 
+		}, {
+			x : higherSpLevel,
+			y : higherOutputLevel
+		} );
+		
+		chart.options.data[1].dataPoints = datapoint1Arr; 
+		chart.options.data[1].markerType = "circle";
+		chart.render();
+	}
+
 	
 	
 }
