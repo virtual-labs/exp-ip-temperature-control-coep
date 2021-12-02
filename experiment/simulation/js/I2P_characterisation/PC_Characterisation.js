@@ -11,18 +11,18 @@ $(function () {
 	$("#submit_PC_WaterLevel").prop("hidden", false);
 	 $("#PC_graph").prop("hidden", false);
 
-	/* var lowerSpLevel = 4;
-	 var higherSpLevel = 20;
-	
-	 if(i2pType == "direct"){
-		 
-		 var lowerOutputLevel = 0.2;
-		 var higherOutputLevel = 1;
-	 }else{
-		 
-		 var lowerOutputLevel = 1;
-		 var higherOutputLevel = 0.2;
-	 }*/
+//	 var lowerSpLevel = 4;
+//	 var higherSpLevel = 20;
+//	
+//	 if(i2pType == "direct"){
+//		 
+//		 var lowerOutputLevel = 0.2;
+//		 var higherOutputLevel = 1;
+//	 }else{
+//		 
+//		 var lowerOutputLevel = 1;
+//		 var higherOutputLevel = 0.2;
+//	 }
 
 	 var lowerSpLevel = ExpTrackData.pcAppData.pcConfigData.lowerSpanLevel;
 	 var higherSpLevel = ExpTrackData.pcAppData.pcConfigData.higherSpanLevel;
@@ -92,6 +92,10 @@ $(function () {
 			+'<div >'
 
 	$(mainDiv).html(PC_characterisation);
+	
+	
+	stop_timer();
+	set_timer();
 
 	var slider = document.getElementById("PC_tankLvl");
 	var output = document.getElementById("demo");
@@ -110,7 +114,8 @@ $(function () {
 						
 						
 						if ($.inArray(parseFloat(waterlevel), PColdreading) >= 0) {
-							alertify.alert('This value reading is already present.  Please select another value for reading');
+							alertify.alert('Alert','This value reading is already present.  Please select another value for reading');
+							$(".ajs-header").css("background-color","#ce6058");
 						} else {
 							$("#PC_graph").prop("hidden", false);
 							
@@ -275,8 +280,9 @@ $(function () {
 
 						if (readingcnt < numofReading) {
 
-							alertify.alert("Please take at least " + numofReading
+							alertify.alert('Alert',"Please take at least " + numofReading
 									+ " readings");
+							$(".ajs-header").css("background-color","#ce6058");
 						}
 
 						
@@ -405,14 +411,16 @@ $(function () {
 
 		if(PColdreadingForGraph.indexOf(lowerSpLevel) == -1){
 			
-			alertify.alert("Please select lower span value and plot the graph again");
+			alertify.alert('Alert',"Please select lower span value and plot the graph again");
+			$(".ajs-header").css("background-color","#ce6058");
 			$("#PC_calibration").prop("hidden", true);
 			$("#PC_graph").prop("hidden", true);			
 			$("#PC_chartContainer").html('');
 			
 		}else if(PColdreadingForGraph.indexOf(higherSpLevel) == -1){
 			
-			alertify.alert("Please select higher span value and plot the graph again");
+			alertify.alert('Alert',"Please select higher span value and plot the graph again");
+			$(".ajs-header").css("background-color","#ce6058");
 			$("#PC_calibration").prop("hidden", true);
 			$("#PC_graph").prop("hidden", true);	
 			$("#PC_chartContainer").html('');
@@ -420,10 +428,18 @@ $(function () {
 			
 		}else{
 			
+			
+			minutes = document.getElementById("minutes").textContent;
+    		seconds = document.getElementById("seconds").textContent;        		
+//    		console.log(minutes+":"+seconds);
+			
 			PC_CharacterisationData.PCreading = PColdreading;
 			PC_CharacterisationData.PCactualVal = PCarr_actualVal;
 			PC_CharacterisationData.PCstdVal = PCarr_stdVal;
 			
+			
+			PC_CharacterisationData.CharacTimeInMin = minutes;
+			PC_CharacterisationData.CharacTimeInSec = seconds;
 //			console.log(PC_CharacterisationData);
 			
 		//	PC_appData.pcCharactData = PC_CharacterisationData;
@@ -431,6 +447,9 @@ $(function () {
 			ExpTrackData.pcCharactData = PC_CharacterisationData;
 			
 //			console.log(ExpTrackData);
+			
+			stop_timer();
+			
 			if(i2pType == "direct"){
 			PC_calibrationFun_Direct(i2pType, lowerSpLevel, higherSpLevel, PColdreading, PCarr_actualVal, PCarr_stdVal, lowerOutputLevel, higherOutputLevel);
 			}

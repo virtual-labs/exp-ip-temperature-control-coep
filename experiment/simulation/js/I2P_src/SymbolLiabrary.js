@@ -104,6 +104,10 @@ $(function () {
 		$("#mainDiv").html(SymbolLibrary);
 		
 		
+		stop_timer();
+		set_timer();
+		
+		
 		 app  = new example.Application(appId, type);
 		//var canvas = new example.View("draw2Did");
 		app.view.installEditPolicy(  new draw2d.policy.connection.DragConnectionCreatePolicy({
@@ -154,7 +158,7 @@ $(function () {
 			// Save jsonarray to DB
              alertify.alert(jsonarray); 
 
-			console.log(jsonarray);
+//			console.log(jsonarray);
 			if(appId == 1){
 				
 				checkConnectionsForLC(appId,jsonarray);
@@ -181,7 +185,7 @@ $(function () {
 					
 					var figure = null;
 					
-					console.log("pageX: " + event.pageX + ", pageY: " + event.pageY);
+//					console.log("pageX: " + event.pageX + ", pageY: " + event.pageY);
 				
  					var draggedId = ui.draggable.prop("id");
 					

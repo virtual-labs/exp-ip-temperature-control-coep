@@ -65,7 +65,8 @@ $.each(temp , function (key, value) {
 		 
 	 }else{
 		 
-		 alertify.alert("Do Some Connection");
+		 alertify.alert("Alert","Do Some Connection");
+		 $(".ajs-header").css("background-color","#ce6058");
 		 
 	 }
 	
@@ -78,7 +79,8 @@ CheckRightConnectionI2p_TY100 = function(){
 	
 	if(analogOutToI2pPlus_TY100 == 1 && analogOutToI2pMinus_TY100 == 1 &&  i2pWrongConnection_TY100 == 0){
 		
-		alertify.alert("Correct Connection. Please click next level");
+		alertify.alert("Success","Correct Connection. Please click next level");
+		 $(".ajs-header").css("background-color","#4CAF50");
 		app.toolbar.characterisation_Button.show();
 //		app.toolbar.characterisation_Button.hide();
 	    rightConn = 1;
@@ -90,11 +92,13 @@ CheckRightConnectionI2p_TY100 = function(){
 		
 					if(ConnFlagCnt == 3){
 							app.toolbar.hintButton.show();							
-							alertify.alert("Wrong Connection");	
+							alertify.alert("Alert","Wrong Connection");	
+							 $(".ajs-header").css("background-color","#ce6058");
 							rightConn = 0;		
 						}else{
 							
-							alertify.alert("Wrong Connection");
+							alertify.alert("Alert","Wrong Connection");
+							 $(".ajs-header").css("background-color","#ce6058");
 							ConnFlagCnt++
 							rightConn = 0;
 						}
@@ -114,7 +118,8 @@ CheckWrongConnectionI2p_TY100 = function(){
 	                    if(ConnFlagCnt == 3){
 							 app.toolbar.hintButton.show();
 							 
-							 alertify.alert("Wrong Connection");
+							 alertify.alert("Alert","Wrong Connection");
+							 $(".ajs-header").css("background-color","#ce6058");
 							 rightConn = 0;
 							 
 													
@@ -122,7 +127,8 @@ CheckWrongConnectionI2p_TY100 = function(){
 			
 							if(i2pWrongConnection_TY100 == 1){
 		
-							alertify.alert("Wrong Connection");
+							alertify.alert("Alert","Wrong Connection");
+							 $(".ajs-header").css("background-color","#ce6058");
 							ConnFlagCnt++;
 							rightConn = 0;
 		

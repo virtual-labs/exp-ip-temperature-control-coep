@@ -23,8 +23,14 @@ var width = $(window).width();
     //x = 310;
 	//y = 160;
 	
+	if ($(window).width() <= 1368) {
 	x = 390;
+	y = 50;
+  }else
+  {
+ x = 390;
 	y = 290;
+  }
 
 	
 	var PL_tank = PL_Tank ((x-80), y);

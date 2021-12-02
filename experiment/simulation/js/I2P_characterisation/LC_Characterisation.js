@@ -11,18 +11,18 @@ $(function () {
 	$("#submit_LC_WaterLevel").prop("hidden", false);
 	 $("#LC_graph").prop("hidden", false);
 
-	/* var lowerSpLevel = 4;
-	 var higherSpLevel = 20;
-	
-	 if(i2pType == "direct"){
-		 
-		 var lowerOutputLevel = 0.2;
-		 var higherOutputLevel = 1;
-	 }else{
-		 
-		 var lowerOutputLevel = 1;
-		 var higherOutputLevel = 0.2;
-	 }*/
+//	 var lowerSpLevel = 4;
+//	 var higherSpLevel = 20;
+//	
+//	 if(i2pType == "direct"){
+//		 
+//		 var lowerOutputLevel = 0.2;
+//		 var higherOutputLevel = 1;
+//	 }else{
+//		 
+//		 var lowerOutputLevel = 1;
+//		 var higherOutputLevel = 0.2;
+//	 }
 
 	 var lowerSpLevel = ExpTrackData.lcAppData.lcConfigData.lowerSpanLevel;
 	 var higherSpLevel = ExpTrackData.lcAppData.lcConfigData.higherSpanLevel;
@@ -93,6 +93,9 @@ $(function () {
 
 	$(mainDiv).html(LC_characterisation);
 
+	stop_timer();
+	set_timer();
+	
 	var slider = document.getElementById("LC_tankLvl");
 	var output = document.getElementById("demo");
 	output.innerHTML = slider.value;
@@ -110,7 +113,8 @@ $(function () {
 						
 						
 						if ($.inArray(parseFloat(waterlevel), LColdreading) >= 0) {
-							alertify.alert('This value reading is already present.  Please select another value for reading');
+							alertify.alert('Alert','This value reading is already present.  Please select another value for reading');
+							$(".ajs-header").css("background-color","#ce6058");
 						} else {
 							$("#LC_graph").prop("hidden", false);
 							
@@ -275,8 +279,9 @@ $(function () {
 
 						if (readingcnt < numofReading) {
 
-							alertify.alert("Please take at least " + numofReading
+							alertify.alert('Alert',"Please take at least " + numofReading
 									+ " readings");
+							$(".ajs-header").css("background-color","#ce6058");
 						}
 
 						
@@ -405,14 +410,16 @@ $(function () {
 
 		if(LColdreadingForGraph.indexOf(lowerSpLevel) == -1){
 			
-			alertify.alert("Please select lower span value and plot the graph again");
+			alertify.alert('Alert',"Please select lower span value and plot the graph again");
+			$(".ajs-header").css("background-color","#ce6058");
 			$("#LC_calibration").prop("hidden", true);
 			$("#LC_graph").prop("hidden", true);			
 			$("#LC_chartContainer").html('');
 			
 		}else if(LColdreadingForGraph.indexOf(higherSpLevel) == -1){
 			
-			alertify.alert("Please select higher span value and plot the graph again");
+			alertify.alert('Alert',"Please select higher span value and plot the graph again");
+			$(".ajs-header").css("background-color","#ce6058");
 			$("#LC_calibration").prop("hidden", true);
 			$("#LC_graph").prop("hidden", true);	
 			$("#LC_chartContainer").html('');
@@ -420,10 +427,18 @@ $(function () {
 			
 		}else{
 			
+			
+			minutes = document.getElementById("minutes").textContent;
+    		seconds = document.getElementById("seconds").textContent;        		
+//    		console.log(minutes+":"+seconds);
+			
 			LC_CharacterisationData.LCreading = LColdreading;
 			LC_CharacterisationData.LCactualVal = LCarr_actualVal;
 			LC_CharacterisationData.LCstdVal = LCarr_stdVal;
 			
+			
+			LC_CharacterisationData.CharacTimeInMin = minutes;
+			LC_CharacterisationData.CharacTimeInSec = seconds;
 //			console.log(LC_CharacterisationData);
 			
 		//	LC_appData.lcCharactData = LC_CharacterisationData;
@@ -431,6 +446,10 @@ $(function () {
 			ExpTrackData.lcCharactData = LC_CharacterisationData;
 			
 //			console.log(ExpTrackData);
+			
+			stop_timer();
+			
+			
 			if(i2pType == "direct"){
 			LC_calibrationFun_Direct(i2pType, lowerSpLevel, higherSpLevel, LColdreading, LCarr_actualVal, LCarr_stdVal, lowerOutputLevel, higherOutputLevel);
 			}

@@ -88,7 +88,7 @@ function plusNozzel(x,y,a)
 }
 function minusNozzel(x,y,a)
 {
-	console.log("a="+a);
+//	console.log("a="+a);
 	x = x + a;
 	y = y + a;
 	
